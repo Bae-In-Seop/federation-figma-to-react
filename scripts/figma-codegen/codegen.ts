@@ -4,6 +4,7 @@ import { generateReactCode } from './generators/react.js';
 import { generateCSSCode } from './generators/css.js';
 import { generateStoryCode } from './generators/story.js';
 import { parseFigmaUrl, toPascalCase } from './utils.js';
+import { mockFigmaResponse } from './mock-data.js';
 
 export interface CodegenResult {
   componentName: string;
@@ -13,6 +14,9 @@ export interface CodegenResult {
     story: { filename: string; content: string };
   };
 }
+
+// Check if mock mode is enabled
+const USE_MOCK_MODE = process.env.USE_MOCK_FIGMA === 'true';
 
 export async function runCodegen(
   figmaUrl: string,
@@ -26,7 +30,15 @@ export async function runCodegen(
   }
 
   const { fileKey, nodeId } = parsed;
-  const response = await fetchFigmaNode(fileKey, nodeId, token);
+
+  let response;
+
+  if (USE_MOCK_MODE) {
+    console.log('[Codegen] Using MOCK Figma data (rate limit bypass)');
+    response = mockFigmaResponse;
+  } else {
+    response = await fetchFigmaNode(fileKey, nodeId, token);
+  }
 
   const nodeKey = Object.keys(response.nodes)[0];
   if (!nodeKey) {

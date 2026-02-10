@@ -15,46 +15,113 @@ function figmaApiDevPlugin(): Plugin {
   return {
     name: 'figma-api-dev',
     configureServer(server) {
-      server.middlewares.use('/api/figma', async (req, res) => {
-        if (req.method !== 'POST') {
-          res.writeHead(405, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Method not allowed' }));
-          return;
-        }
+      // Middleware to proxy API routes to serverless function handlers
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url || '';
 
-        let body = '';
-        for await (const chunk of req) {
-          body += chunk;
-        }
+        // Serve package files from dist/packages
+        if (url.startsWith('/packages/')) {
+          const fs = await import('fs');
+          const path = await import('path');
+          const filename = url.replace('/packages/', '');
+          const filePath = path.join(process.cwd(), 'dist', 'packages', filename);
 
-        try {
-          const { figmaUrl } = JSON.parse(body);
-          if (!figmaUrl || typeof figmaUrl !== 'string') {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Missing or invalid figmaUrl' }));
+          try {
+            const fileBuffer = fs.readFileSync(filePath);
+            res.setHeader('Content-Type', 'application/gzip');
+            res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+            res.end(fileBuffer);
+            return;
+          } catch (err) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Package file not found' }));
             return;
           }
+        }
 
-          // Dynamic import to keep codegen out of client bundle
-          const { runCodegen } = await import('./scripts/figma-codegen/codegen.js');
+        // Route to appropriate handler based on URL
+        if (url.startsWith('/api/')) {
+          try {
+            // Extract path and query
+            const [pathname, search] = url.split('?');
+            const query: Record<string, string> = {};
+            if (search) {
+              new URLSearchParams(search).forEach((value, key) => {
+                query[key] = value;
+              });
+            }
 
-          // Load token from environment (dotenv loaded at top of vite config)
-          const token = process.env.FIGMA_ACCESS_TOKEN;
-          if (!token) {
+            // Read request body for POST/DELETE
+            let body: any = {};
+            if (req.method === 'POST' || req.method === 'DELETE') {
+              let rawBody = '';
+              for await (const chunk of req) {
+                rawBody += chunk;
+              }
+              if (rawBody) {
+                try {
+                  body = JSON.parse(rawBody);
+                } catch {
+                  body = {};
+                }
+              }
+            }
+
+            // Create request/response objects matching Vercel handler signature
+            const vercelReq = { method: req.method, body, query } as any;
+            const vercelRes = {
+              status: (code: number) => {
+                res.statusCode = code;
+                return vercelRes;
+              },
+              json: (data: any) => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(data));
+              },
+            } as any;
+
+            // Route to handlers
+            if (pathname === '/api/figma') {
+              const { default: handler } = await import('./api/figma.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/components') {
+              const { default: handler } = await import('./api/components.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname.match(/^\/api\/components\/[^/]+$/)) {
+              const id = pathname.split('/').pop();
+              vercelReq.query = { ...query, id };
+              const { default: handler } = await import('./api/components/[id].ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/components/save') {
+              const { default: handler } = await import('./api/components/save.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/components/delete') {
+              const { default: handler } = await import('./api/components/delete.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/package/build') {
+              const { default: handler } = await import('./api/package/build.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/package/info') {
+              const { default: handler } = await import('./api/package/info.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            }
+          } catch (err) {
+            console.error('API handler error:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Server misconfigured: missing Figma token' }));
+            res.end(JSON.stringify({ error: err instanceof Error ? err.message : 'Internal server error' }));
             return;
           }
-
-          const result = await runCodegen(figmaUrl, token);
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify(result));
-        } catch (err) {
-          const message = err instanceof Error ? err.message : 'Unknown error';
-          const status = message.includes('Invalid Figma URL') ? 400 : 500;
-          res.writeHead(status, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: message }));
         }
+
+        // Not an API route, continue to next middleware
+        next();
       });
     },
   };

@@ -1,0 +1,327 @@
+/* Package Page - Storybook Theme */
+.package-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.package-page__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+  color: var(--sb-text-secondary);
+  font-size: 1rem;
+}
+
+.package-page__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--sb-bg-tertiary);
+  border-top-color: var(--sb-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.package-page__error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 71, 133, 0.1);
+  border: 1px solid var(--sb-error);
+  border-radius: 6px;
+  color: var(--sb-error);
+  font-size: 1rem;
+  min-height: 60vh;
+  justify-content: center;
+}
+
+/* Header */
+.package-page__header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--sb-border);
+}
+
+.package-page__header-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: var(--sb-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sb-accent);
+  flex-shrink: 0;
+}
+
+.package-page__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--sb-text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.package-page__subtitle {
+  color: var(--sb-text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Error Banner */
+.package-page__error-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 71, 133, 0.1);
+  border: 1px solid var(--sb-error);
+  border-radius: 6px;
+  color: var(--sb-error);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Info Card */
+.package-page__info-card {
+  background: var(--sb-bg-secondary);
+  border: 1px solid var(--sb-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.package-page__info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--sb-border);
+}
+
+.package-page__info-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.package-page__info-row:first-child {
+  padding-top: 0;
+}
+
+.package-page__info-label {
+  color: var(--sb-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.package-page__info-value {
+  color: var(--sb-text-primary);
+  font-weight: 600;
+}
+
+.package-page__info-value code {
+  background: var(--sb-bg-tertiary);
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  color: var(--sb-accent);
+}
+
+/* Actions */
+.package-page__actions {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.package-page__build-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--sb-accent);
+  color: var(--sb-text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(244, 121, 32, 0.3);
+}
+
+.package-page__build-button:hover:not(:disabled) {
+  background: var(--sb-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 121, 32, 0.4);
+}
+
+.package-page__build-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.package-page__help-text {
+  margin-top: 1rem;
+  color: var(--sb-text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Result */
+.package-page__result {
+  background: var(--sb-bg-secondary);
+  border: 1px solid var(--sb-success);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.package-page__result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--sb-border);
+}
+
+.package-page__result-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--sb-success);
+  margin: 0;
+}
+
+.package-page__log-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 4px;
+  border: 1px solid var(--sb-border);
+  background: transparent;
+  color: var(--sb-text-secondary);
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.package-page__log-toggle:hover {
+  background: var(--sb-bg-tertiary);
+  color: var(--sb-text-primary);
+}
+
+.package-page__build-log {
+  background: var(--sb-bg-code);
+  border: 1px solid var(--sb-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.8rem;
+}
+
+.package-page__log-line {
+  color: var(--sb-text-secondary);
+  padding: 0.25rem 0;
+}
+
+/* Download Section */
+.package-page__download-section {
+  border-top: 1px solid var(--sb-border);
+  padding-top: 1.5rem;
+}
+
+.package-page__download-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--sb-text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.package-page__download-text {
+  color: var(--sb-text-secondary);
+  font-size: 0.9rem;
+  margin: 0 0 1.25rem;
+}
+
+.package-page__download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 8px;
+  background: var(--sb-success);
+  color: var(--sb-text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.package-page__download-button:hover {
+  background: #5AAF32;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 191, 60, 0.3);
+}
+
+/* Install Instructions */
+.package-page__install-instructions h4 {
+  color: var(--sb-text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.package-page__install-instructions h4:first-child {
+  margin-top: 0;
+}
+
+.package-page__code-block {
+  background: var(--sb-bg-code);
+  border: 1px solid var(--sb-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.85rem;
+  color: var(--sb-text-primary);
+  overflow-x: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .package-page {
+    padding: 2rem 1rem;
+  }
+
+  .package-page__header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .package-page__result-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}

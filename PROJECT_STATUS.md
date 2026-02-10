@@ -6,11 +6,14 @@
 ## 1. 프로젝트 개요
 
 Figma 컴포넌트 URL을 입력하면 **React 컴포넌트 + CSS Module + Storybook Story** 코드를 자동 생성하는 도구.
-CLI 파이프라인으로 시작해 포트폴리오용 웹 UI로 확장.
+**Component Management System**으로 확장하여 생성된 컴포넌트를 관리하고 npm 패키지로 배포 가능.
 
 - **CLI**: `npm run codegen <figma-url>` → 로컬 파일 생성
-- **Web UI**: 브라우저에서 URL 입력 → 구문 강조된 코드 미리보기
-- **배포 대상**: Vercel (serverless function + Vite SPA)
+- **Web UI**:
+  - Generator: URL 입력 → 코드 생성 → 라이브러리 저장
+  - Library: 저장된 컴포넌트 조회/삭제
+  - Package: npm 패키지 빌드 및 다운로드
+- **배포 대상**: Vercel (Serverless Functions + Postgres + Blob Storage)
 
 ## 2. 아키텍처
 
@@ -143,16 +146,50 @@ npm run lint         # ESLint
 | 7 | `prism-react-renderer`, `@vercel/node` 설치, 빌드 검증 | ✅ 완료 |
 | 8 | Git 초기화 + initial commit | ✅ 완료 |
 
-## 9. 남은 작업
+## 9. 새로 완료된 작업 (2026-02-10)
+
+| # | 작업 | 상태 |
+|---|------|------|
+| 1 | Database schema (Postgres) 생성 | ✅ 완료 |
+| 2 | Component CRUD API 엔드포인트 구현 | ✅ 완료 |
+| 3 | React Router 기반 UI 리팩토링 | ✅ 완료 |
+| 4 | Library Management UI 구현 | ✅ 완료 |
+| 5 | Package Builder 백엔드 구현 | ✅ 완료 |
+| 6 | Package Builder UI 구현 | ✅ 완료 |
+| 7 | README.md 업데이트 | ✅ 완료 |
+| 8 | vercel.json 환경 변수 설정 | ✅ 완료 |
+
+## 10. 새로운 기능
+
+### Component Library Management
+- 생성된 컴포넌트를 Vercel Postgres에 저장
+- Library 페이지에서 모든 컴포넌트 조회
+- 컴포넌트 상세 코드 보기 (모달)
+- 컴포넌트 삭제 기능
+
+### npm Package Builder
+- 모든 저장된 컴포넌트를 단일 npm 패키지로 빌드
+- Vercel Blob에 tarball 업로드
+- 패키지 다운로드 및 설치 가이드 제공
+
+### UI 개선
+- React Router 기반 3페이지 구조
+  - `/` - Generator (기존 기능 + "Save to Library" 버튼)
+  - `/library` - Component Library
+  - `/package` - Package Builder
+- 다크 테마 통일
+- 네비게이션 헤더
+
+## 11. 남은 작업
 
 | # | 작업 | 우선순위 | 비고 |
 |---|------|----------|------|
-| 1 | GitHub 레포 생성 및 push | 높음 | `gh` CLI 미설치. `git remote add origin <url> && git push -u origin main` |
-| 2 | Vercel 배포 | 높음 | Vercel 프로젝트 연동 후 `FIGMA_ACCESS_TOKEN` 환경변수 등록 필요 |
-| 3 | Vercel serverless 호환성 확인 | 중간 | `api/figma.ts`가 `scripts/` 모듈을 import — 번들링 경로 확인 필요 |
-| 4 | 에러 UX 개선 | 낮음 | 네트워크 타임아웃, Figma API rate limit 등 엣지 케이스 |
-| 5 | `src/stories/Button.stories.ts` TODO 해결 | 낮음 | Figma URL 교체 필요 |
-| 6 | README.md 업데이트 | 낮음 | 현재 Vite 템플릿 기본 내용 — 프로젝트 설명으로 교체 |
+| 1 | Vercel Postgres 데이터베이스 생성 | 높음 | Vercel 대시보드에서 생성 후 `sql/schema.sql` 실행 |
+| 2 | Vercel Blob 스토리지 설정 | 높음 | Vercel 대시보드에서 Blob storage 활성화 |
+| 3 | Vercel 환경 변수 등록 | 높음 | `POSTGRES_URL`, `BLOB_READ_WRITE_TOKEN` 등 |
+| 4 | Vercel 배포 테스트 | 높음 | 실제 배포 후 E2E 테스트 |
+| 5 | GitHub 레포 생성 및 push | 중간 | `git remote add origin <url> && git push -u origin main` |
+| 6 | Neon DB 마이그레이션 검토 | 낮음 | `@vercel/postgres` deprecated |
 
 ## 10. 알려진 이슈
 

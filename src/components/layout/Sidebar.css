@@ -1,0 +1,252 @@
+/* Storybook-style Sidebar */
+.sidebar {
+  width: 240px;
+  background: #2E2E2E;
+  border-right: 1px solid #3D3D3D;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: width 0.2s ease;
+  z-index: 100;
+}
+
+.sidebar--collapsed {
+  width: 60px;
+}
+
+.sidebar__header {
+  padding: 1rem;
+  border-bottom: 1px solid #3D3D3D;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.sidebar__logo-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.sidebar__logo-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.sidebar__toggle {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: #CCCCCC;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.sidebar__toggle:hover {
+  background: #3D3D3D;
+  color: #FFFFFF;
+}
+
+.sidebar__actions {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #3D3D3D;
+}
+
+.sidebar__add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  background: #F47920;
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sidebar__add-button:hover {
+  background: #E06810;
+}
+
+.sidebar--collapsed .sidebar__add-button {
+  padding: 0.625rem;
+}
+
+.sidebar__nav {
+  flex: 1;
+  padding: 1rem 0.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 0.75rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar__components {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.sidebar__component {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  color: #CCCCCC;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar__component:hover {
+  background: #3D3D3D;
+  color: #FFFFFF;
+}
+
+.sidebar__component--active {
+  background: #3D3D3D;
+  color: #F47920;
+}
+
+.sidebar__component-icon {
+  flex-shrink: 0;
+}
+
+.sidebar__component-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar--collapsed .sidebar__component {
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.sidebar__loading,
+.sidebar__empty {
+  padding: 1rem 0.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #999;
+}
+
+.sidebar__divider {
+  height: 1px;
+  background: #3D3D3D;
+  margin: 0.5rem 0;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 6px;
+  color: #CCCCCC;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+.sidebar__link:hover {
+  background: #3D3D3D;
+  color: #FFFFFF;
+}
+
+.sidebar__link--active {
+  background: #F47920;
+  color: #FFFFFF;
+}
+
+.sidebar__link--active:hover {
+  background: #E06810;
+}
+
+.sidebar__link-icon {
+  flex-shrink: 0;
+}
+
+.sidebar__link-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar--collapsed .sidebar__link {
+  justify-content: center;
+  padding: 0.625rem;
+}
+
+.sidebar__footer {
+  padding: 1rem;
+  border-top: 1px solid #3D3D3D;
+  min-height: 60px;
+}
+
+.sidebar__info {
+  text-align: center;
+}
+
+.sidebar__version {
+  font-size: 0.75rem;
+  color: #999;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar__logo-text {
+    display: none;
+  }
+
+  .sidebar__link-text {
+    display: none;
+  }
+
+  .sidebar__info {
+    display: none;
+  }
+}

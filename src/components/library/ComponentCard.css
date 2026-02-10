@@ -1,0 +1,92 @@
+.component-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 1.25rem;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.component-card:hover {
+  border-color: #475569;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.component-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.component-card__name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.component-card__date {
+  font-size: 0.75rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.component-card__url {
+  font-size: 0.8rem;
+}
+
+.component-card__link {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.component-card__link:hover {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+.component-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.component-card__button {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.component-card__button--view {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.component-card__button--view:hover {
+  background: #2563eb;
+}
+
+.component-card__button--delete {
+  background: transparent;
+  color: #f87171;
+  border: 1px solid #ef4444;
+}
+
+.component-card__button--delete:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}

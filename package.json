@@ -13,10 +13,14 @@
     "codegen": "tsx scripts/figma-codegen/index.ts"
   },
   "dependencies": {
+    "@vercel/blob": "^0.25.0",
+    "@vercel/postgres": "^0.10.0",
     "dotenv": "^16.4.7",
+    "lucide-react": "^0.563.0",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.2.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.1",

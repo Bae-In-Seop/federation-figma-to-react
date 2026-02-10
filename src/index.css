@@ -1,10 +1,33 @@
+/* Storybook-inspired Dark Theme */
 :root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  /* Storybook Color Palette */
+  --sb-bg-primary: #1E1E1E;
+  --sb-bg-secondary: #2E2E2E;
+  --sb-bg-tertiary: #3D3D3D;
+  --sb-bg-code: #1A1A1A;
+
+  --sb-border: #3D3D3D;
+
+  --sb-text-primary: #FFFFFF;
+  --sb-text-secondary: #CCCCCC;
+  --sb-text-muted: #999999;
+
+  --sb-accent: #F47920;
+  --sb-accent-hover: #E06810;
+
+  --sb-success: #66BF3C;
+  --sb-error: #FF4785;
+  --sb-warning: #FFC107;
+
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color: #e2e8f0;
-  background-color: #0f172a;
+  color-scheme: dark;
+  color: var(--sb-text-primary);
+  background-color: var(--sb-bg-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,10 +39,51 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--sb-bg-primary);
+  color: var(--sb-text-primary);
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  font-weight: 500;
+  color: var(--sb-accent);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--sb-accent-hover);
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-bg-tertiary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

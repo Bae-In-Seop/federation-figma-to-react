@@ -22,18 +22,34 @@ export async function fetchFigmaNode(
   });
 
   if (!response.ok) {
+    // Try to get detailed error message from response body
+    let errorDetail = '';
+    try {
+      const errorBody = await response.json();
+      errorDetail = errorBody.message || errorBody.error || JSON.stringify(errorBody);
+    } catch {
+      errorDetail = await response.text().catch(() => 'No error details available');
+    }
+
+    console.error(`Figma API Error ${response.status}:`, errorDetail);
+
     if (response.status === 401 || response.status === 403) {
       throw new Error(
-        'Figma API authentication failed. Check your FIGMA_ACCESS_TOKEN.',
+        `Figma API authentication failed. Check your FIGMA_ACCESS_TOKEN. Details: ${errorDetail}`,
       );
     }
     if (response.status === 404) {
       throw new Error(
-        `Figma node not found: file=${fileKey}, node=${nodeId}`,
+        `Figma node not found: file=${fileKey}, node=${nodeId}. Details: ${errorDetail}`,
+      );
+    }
+    if (response.status === 429) {
+      throw new Error(
+        `Figma API rate limit exceeded. Details: ${errorDetail}. Please wait and try again.`,
       );
     }
     throw new Error(
-      `Figma API error: ${response.status} ${response.statusText}`,
+      `Figma API error: ${response.status} ${response.statusText}. Details: ${errorDetail}`,
     );
   }
 

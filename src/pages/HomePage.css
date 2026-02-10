@@ -1,0 +1,132 @@
+/* Home Page - Storybook Theme */
+.home-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--sb-bg-primary);
+}
+
+.home-page__content {
+  max-width: 800px;
+  text-align: center;
+}
+
+.home-page__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--sb-bg-secondary);
+  color: var(--sb-accent);
+  margin-bottom: 2rem;
+}
+
+.home-page__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--sb-text-primary);
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+.home-page__subtitle {
+  font-size: 1.125rem;
+  color: var(--sb-text-secondary);
+  margin: 0 0 3rem;
+  line-height: 1.6;
+}
+
+.home-page__features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.home-page__feature {
+  background: var(--sb-bg-secondary);
+  border: 1px solid var(--sb-border);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  transition: all 0.2s;
+}
+
+.home-page__feature:hover {
+  border-color: var(--sb-accent);
+  transform: translateY(-2px);
+}
+
+.home-page__feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--sb-bg-tertiary);
+  color: var(--sb-accent);
+  margin-bottom: 1rem;
+}
+
+.home-page__feature-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--sb-text-primary);
+  margin: 0 0 0.75rem;
+}
+
+.home-page__feature-text {
+  font-size: 0.9rem;
+  color: var(--sb-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.home-page__cta {
+  padding: 2rem;
+  background: var(--sb-bg-secondary);
+  border: 1px solid var(--sb-border);
+  border-radius: 8px;
+}
+
+.home-page__cta-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--sb-text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.home-page__cta-hint {
+  font-size: 0.95rem;
+  color: var(--sb-text-secondary);
+  margin: 0;
+}
+
+.home-page__cta-hint strong {
+  color: var(--sb-accent);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-page__title {
+    font-size: 2rem;
+  }
+
+  .home-page__subtitle {
+    font-size: 1rem;
+  }
+
+  .home-page__features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .home-page__feature {
+    padding: 1.5rem 1rem;
+  }
+}
