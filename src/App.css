@@ -1,0 +1,260 @@
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.app__title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app__subtitle {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Form */
+.app__form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.app__input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.app__input:focus {
+  border-color: #60a5fa;
+}
+
+.app__input:disabled {
+  opacity: 0.6;
+}
+
+.app__input::placeholder {
+  color: #64748b;
+}
+
+.app__button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.app__button:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.app__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Phase indicator */
+.phase-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.phase-step {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  transition: color 0.3s;
+}
+
+.phase-step--done {
+  color: #4ade80;
+}
+
+.phase-step--active {
+  color: #60a5fa;
+}
+
+.phase-step__icon {
+  font-size: 0.75rem;
+}
+
+.phase-step--active .phase-step__icon {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Error */
+.app__error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.app__error-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Code panel */
+.code-panel {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0d1117;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.code-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #161b22;
+  border-bottom: 1px solid #334155;
+  padding: 0 0.5rem;
+}
+
+.code-panel__tabs {
+  display: flex;
+}
+
+.code-panel__tab {
+  padding: 0.7rem 1rem;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.code-panel__tab:hover {
+  color: #e2e8f0;
+}
+
+.code-panel__tab--active {
+  color: #60a5fa;
+  border-bottom-color: #60a5fa;
+}
+
+.code-panel__tab-filename {
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.code-panel__tab--active .code-panel__tab-filename {
+  color: #64748b;
+}
+
+.code-panel__copy {
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.code-panel__copy:hover {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Code block */
+.code-block {
+  overflow: auto;
+  flex: 1;
+}
+
+.code-block__pre {
+  margin: 0;
+  padding: 1rem 0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  min-height: 100%;
+}
+
+.code-block__line-number {
+  display: inline-block;
+  width: 3rem;
+  text-align: right;
+  padding-right: 1rem;
+  color: #475569;
+  user-select: none;
+}
+
+/* Footer */
+.app__footer {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  color: #475569;
+  font-size: 0.8rem;
+}
