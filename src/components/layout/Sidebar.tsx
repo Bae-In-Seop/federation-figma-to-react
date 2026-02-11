@@ -29,9 +29,9 @@ export function Sidebar() {
     }
   }
 
-  function handleComponentAdded(componentId: string) {
+  function handleComponentAdded(_componentId: string) {
     loadComponents();
-    navigate(`/components/${componentId}`);
+    navigate('/generate');
   }
 
   return (

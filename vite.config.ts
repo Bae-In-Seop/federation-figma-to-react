@@ -80,9 +80,17 @@ function figmaApiDevPlugin(): Plugin {
               },
             } as any;
 
-            // Route to handlers
+            // Route to handlers (specific paths before dynamic catch-all)
             if (pathname === '/api/figma') {
               const { default: handler } = await import('./api/figma.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/components/save') {
+              const { default: handler } = await import('./api/components/save.ts');
+              await handler(vercelReq, vercelRes);
+              return;
+            } else if (pathname === '/api/components/delete') {
+              const { default: handler } = await import('./api/components/delete.ts');
               await handler(vercelReq, vercelRes);
               return;
             } else if (pathname === '/api/components') {
@@ -93,14 +101,6 @@ function figmaApiDevPlugin(): Plugin {
               const id = pathname.split('/').pop();
               vercelReq.query = { ...query, id };
               const { default: handler } = await import('./api/components/[id].ts');
-              await handler(vercelReq, vercelRes);
-              return;
-            } else if (pathname === '/api/components/save') {
-              const { default: handler } = await import('./api/components/save.ts');
-              await handler(vercelReq, vercelRes);
-              return;
-            } else if (pathname === '/api/components/delete') {
-              const { default: handler } = await import('./api/components/delete.ts');
               await handler(vercelReq, vercelRes);
               return;
             } else if (pathname === '/api/package/build') {
