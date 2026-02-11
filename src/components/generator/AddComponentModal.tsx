@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { X, Wand2, Loader2, AlertCircle } from 'lucide-react';
-import { generateCode } from '../../utils/api';
+import { generateCode, saveComponent } from '../../utils/api';
 import './AddComponentModal.css';
 
 interface AddComponentModalProps {
@@ -29,17 +29,17 @@ export function AddComponentModal({ isOpen, onClose, onSuccess }: AddComponentMo
       // Generate code from Figma
       const result = await generateCode(figmaUrl);
 
-      // TODO: DB 연동 후 save 복원
-      // const { id } = await saveComponent({
-      //   componentName: result.componentName,
-      //   figmaUrl,
-      //   files: result.files,
-      // });
+      // Save to database
+      const { id } = await saveComponent({
+        componentName: result.componentName,
+        figmaUrl,
+        files: result.files,
+      });
 
-      // Close modal and notify parent with component name as temp ID
+      // Close modal and notify parent with saved component ID
       setFigmaUrl('');
       onClose();
-      onSuccess(result.componentName);
+      onSuccess(id);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to generate component');
     } finally {
