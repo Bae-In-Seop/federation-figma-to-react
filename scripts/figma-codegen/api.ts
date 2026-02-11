@@ -25,7 +25,7 @@ export async function fetchFigmaNode(
     // Try to get detailed error message from response body
     let errorDetail = '';
     try {
-      const errorBody = await response.json();
+      const errorBody = await response.json() as any;
       errorDetail = errorBody.message || errorBody.error || JSON.stringify(errorBody);
     } catch {
       errorDetail = await response.text().catch(() => 'No error details available');

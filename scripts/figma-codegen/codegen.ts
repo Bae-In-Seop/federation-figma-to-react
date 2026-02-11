@@ -45,7 +45,7 @@ export async function runCodegen(
     throw new Error('No nodes returned from Figma API.');
   }
 
-  const rootNode = response.nodes[nodeKey].document;
+  const rootNode = (response.nodes as any)[nodeKey].document;
   const componentName = toPascalCase(rootNode.name);
   const ir = parseFigmaTree(rootNode);
 
